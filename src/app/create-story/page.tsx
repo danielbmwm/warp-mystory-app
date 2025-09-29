@@ -34,7 +34,17 @@ export default function CreateStoryPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [message, setMessage] = useState('');
-  const [generatedStory, setGeneratedStory] = useState<any>(null);
+  const [generatedStory, setGeneratedStory] = useState<{
+    title: string;
+    content: string;
+    childName: string;
+    childAge: number;
+    genre: string;
+    length: string;
+    customPrompt?: string;
+    isInteractive: boolean;
+    createdAt: string;
+  } | null>(null);
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};

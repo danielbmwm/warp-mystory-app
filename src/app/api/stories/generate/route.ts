@@ -74,7 +74,6 @@ export async function POST(request: NextRequest) {
     const prompt = createStoryPrompt({
       childName,
       childAge,
-      genre,
       genreInfo,
       lengthInfo,
       customPrompt,
@@ -154,7 +153,6 @@ export async function POST(request: NextRequest) {
 function createStoryPrompt({ 
   childName, 
   childAge, 
-  genre, 
   genreInfo, 
   lengthInfo, 
   customPrompt, 
@@ -162,9 +160,16 @@ function createStoryPrompt({
 }: {
   childName: string;
   childAge: number;
-  genre: string;
-  genreInfo: any;
-  lengthInfo: any;
+  genreInfo: {
+    name: string;
+    description: string;
+    themes: string[];
+  };
+  lengthInfo: {
+    name: string;
+    wordCount: { min: number; max: number };
+    readingTime: string;
+  };
   customPrompt?: string;
   isInteractive: boolean;
 }): string {
@@ -222,8 +227,16 @@ GESCHICHTE ANFORDERUNGEN:
 function generateFallbackStory(
   childName: string,
   childAge: number,
-  genreInfo: any,
-  lengthInfo: any,
+  genreInfo: {
+    name: string;
+    description: string;
+    themes: string[];
+  },
+  lengthInfo: {
+    name: string;
+    wordCount: { min: number; max: number };
+    readingTime: string;
+  },
   customPrompt?: string
 ): string {
   const stories = {
